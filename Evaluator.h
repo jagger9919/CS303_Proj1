@@ -13,6 +13,8 @@ private:
 	const string OPERATORS[24] = { "(", ")", "{", "}", "[", "]", "||", "&&", "==", "!=", ">", ">=", "<", "<=", "+", "-", "*", "/", "%", "^", "-", "--", "++", "!" };
 	const int PRECEDENCE[24] = { -1, -1, -1, -1, -1, -1, 1, 2, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 6, 7, 8, 8, 8, 8 };
 public:
+	int Count = 0;
+	int getCount();
 	// Given an expression (string), evaluate if possible.
 	double evalExp(const string& exp);
 
