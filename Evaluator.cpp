@@ -60,7 +60,6 @@ double Evaluator::evalExp(const string& exp) {
 			}
 			else
 				throw "EXCEPTION: Unexpected character encountered.";
-		Count++;
 		}
 	}
 
@@ -71,9 +70,15 @@ double Evaluator::evalExp(const string& exp) {
 		cout << operators.top() << ", " << values.top();
 		string op = operators.top(); operators.pop(); // Assign op as the top operator in stack, pop it.
 		double rhs = values.top(); values.pop();    // Assign rhs as the top value in stack, pop it.
-		if (op == "++" || op == "--") {
-			cout << " = " << evalOp(rhs, op);
-			values.push(evalOp(rhs, op));
+		if (op == "++" || op == "--" || op == "-") {
+			if (precedence(op) == 8 && op == "-") {
+				cout << " = " << evalOp(rhs, op);
+				values.push(-1 * rhs);
+			}
+			else {
+				cout << " = " << evalOp(rhs, op);
+				values.push(evalOp(rhs, op));
+			}
 		}
 		else {
 			cout << ", " << values.top() << " = ";
@@ -82,6 +87,7 @@ double Evaluator::evalExp(const string& exp) {
 			values.push(evalOp(rhs, lhs, op));
 		}
 	}
+
 	return values.top();
 }
 
@@ -109,9 +115,15 @@ void Evaluator::pushOp(string op) {
 				cout << operators.top() << ", " << values.top();
 				string op = operators.top(); operators.pop(); // Assign op as the top operator in stack, pop it.
 				double rhs = values.top(); values.pop();    // Assign rhs as the top value in stack, pop it.
-				if (op == "++" || op == "--") {
-					cout << " = " << evalOp(rhs, op);
-					values.push(evalOp(rhs, op));
+				if (op == "++" || op == "--" || op == "-") {
+					if (precedence(op) == 8 && op == "-") {
+						cout << " = " << evalOp(rhs, op);
+						values.push(-1 * rhs);
+					}
+					else {
+						cout << " = " << evalOp(rhs, op);
+						values.push(evalOp(rhs, op));
+					}
 				}
 				else {
 					if (values.empty())
@@ -243,8 +255,4 @@ int Evaluator::precedence(string op) {
 			break;
 		}
 	return retVal;
-}
-
-int Evaluator::getCount(){
-	return Count;
 }
