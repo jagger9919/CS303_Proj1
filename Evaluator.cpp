@@ -60,6 +60,7 @@ double Evaluator::evalExp(const string& exp) {
 			}
 			else
 				throw "EXCEPTION: Unexpected character encountered.";
+		Count++;
 		}
 	}
 
@@ -81,7 +82,6 @@ double Evaluator::evalExp(const string& exp) {
 			values.push(evalOp(rhs, lhs, op));
 		}
 	}
-
 	return values.top();
 }
 
@@ -243,4 +243,8 @@ int Evaluator::precedence(string op) {
 			break;
 		}
 	return retVal;
+}
+
+int Evaluator::getCount(){
+	return Count;
 }
