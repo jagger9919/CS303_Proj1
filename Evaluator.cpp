@@ -61,6 +61,7 @@ double Evaluator::evalExp(const string& exp) {
 			else
 				throw "EXCEPTION: Unexpected character encountered.";
 		}
+		Count++;		
 	}
 
 	// When finished evaluating the tokens, pop the remaining operators.
@@ -255,4 +256,8 @@ int Evaluator::precedence(string op) {
 			break;
 		}
 	return retVal;
+}
+
+int Evaluator::getCount(){
+	return Count;
 }
