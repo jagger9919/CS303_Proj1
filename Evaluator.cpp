@@ -20,6 +20,7 @@ double Evaluator::evalExp(const string& exp) {
 
 	// Keep reading the tokens. Evaluate each iteration.
 	while (expTokens >> nxtToken) {
+		Count++;
 		if (isdigit(nxtToken)) {
 			cout << "Pushing value.. (" << nxtToken << ")" << endl << endl;
 			// Putback nxtToken so it can be re-read as a value.
@@ -61,7 +62,7 @@ double Evaluator::evalExp(const string& exp) {
 			else
 				throw "EXCEPTION: Unexpected character encountered.";
 		}
-		Count++;		
+				
 	}
 
 	// When finished evaluating the tokens, pop the remaining operators.
