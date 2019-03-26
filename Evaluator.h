@@ -29,5 +29,8 @@ public:
 
 	// Given rhs & lhs & op, evaluate.
 	double evalOp(double rhs, double lhs, string op);
+	
+	// Given rhs & op, evaluate.
+	double evalOp(double rhs, string op);
 };
 
