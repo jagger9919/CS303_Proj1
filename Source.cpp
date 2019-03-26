@@ -26,7 +26,7 @@ int main() {
 	
 	// Inform the user if they encounter an exception.
 	catch (const char* error) {
-		cout << endl << error << endl;
+		cout << endl << error << " @ char: " << evalMe.getCount() << endl;
 	}
 
 	system("pause");
