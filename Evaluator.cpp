@@ -20,9 +20,7 @@ double Evaluator::evalExp(const string& exp) {
 
 	// Keep reading the tokens. Evaluate each iteration.
 	while (expTokens >> nxtToken) {
-		Count++;
 		if (isdigit(nxtToken)) {
-			cout << "Pushing value.. (" << nxtToken << ")" << endl << endl;
 			// Putback nxtToken so it can be re-read as a value.
 			expTokens.putback(nxtToken);
 			// Re-read, push value to value stack.
@@ -56,36 +54,29 @@ double Evaluator::evalExp(const string& exp) {
 			}
 			// Check to see if the operator is valid, process it.
 			if (isOp(strOp)) {
-				cout << "Processing operator.. (" << strOp << ")" << endl << endl;
 				pushOp(strOp);
 			}
 			else
 				throw "EXCEPTION: Unexpected character encountered.";
 		}
-				
+		Count++;
 	}
 
 	// When finished evaluating the tokens, pop the remaining operators.
 	// Finish evaluating values.
 	while (!operators.empty()) {
-		cout << "Evaluating.." << endl;
-		cout << operators.top() << ", " << values.top();
 		string op = operators.top(); operators.pop(); // Assign op as the top operator in stack, pop it.
 		double rhs = values.top(); values.pop();    // Assign rhs as the top value in stack, pop it.
 		if (op == "++" || op == "--" || op == "-") {
 			if (precedence(op) == 8 && op == "-") {
-				cout << " = " << evalOp(rhs, op);
 				values.push(-1 * rhs);
 			}
 			else {
-				cout << " = " << evalOp(rhs, op);
 				values.push(evalOp(rhs, op));
 			}
 		}
 		else {
-			cout << ", " << values.top() << " = ";
 			double lhs = values.top(); values.pop();    // Assign lhs as the top value in stack, pop it.
-			cout << evalOp(rhs, lhs, op) << endl << endl;
 			values.push(evalOp(rhs, lhs, op));
 		}
 	}
@@ -113,26 +104,20 @@ void Evaluator::pushOp(string op) {
 				&& (operators.top() != "[")
 				&& (operators.top() != "{")
 				&& (precedence(op) <= precedence(operators.top()))) {
-				cout << "Evaluating.. (Inside)" << endl;
-				cout << operators.top() << ", " << values.top();
 				string op = operators.top(); operators.pop(); // Assign op as the top operator in stack, pop it.
 				double rhs = values.top(); values.pop();    // Assign rhs as the top value in stack, pop it.
 				if (op == "++" || op == "--" || op == "-") {
 					if (precedence(op) == 8 && op == "-") {
-						cout << " = " << evalOp(rhs, op);
 						values.push(-1 * rhs);
 					}
 					else {
-						cout << " = " << evalOp(rhs, op);
 						values.push(evalOp(rhs, op));
 					}
 				}
 				else {
 					if (values.empty())
 						throw "\nEXCEPTION: Too many operators.";
-					cout << ", " << values.top() << " = ";
 					double lhs = values.top(); values.pop();    // Assign lhs as the top value in stack, pop it.
-					cout << evalOp(rhs, lhs, op) << endl << endl;
 					values.push(evalOp(rhs, lhs, op));
 				}
 			}
@@ -259,6 +244,6 @@ int Evaluator::precedence(string op) {
 	return retVal;
 }
 
-int Evaluator::getCount(){
+int Evaluator::getCount() {
 	return Count;
 }
