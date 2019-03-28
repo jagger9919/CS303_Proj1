@@ -22,15 +22,14 @@ public:
 	bool isOp(string op);
 
 	// Handles the pushing of operators.
-	void pushOp(string op);
+	void pushOp(string op, bool isEmpty);
 
 	// Returns the corresponding precedence of an operator.
 	int precedence(string op);
 
 	// Given rhs & lhs & op, evaluate.
 	double evalOp(double rhs, double lhs, string op);
-	
+
 	// Given rhs & op, evaluate.
 	double evalOp(double rhs, string op);
 };
-
